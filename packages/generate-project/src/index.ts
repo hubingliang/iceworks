@@ -1,6 +1,7 @@
 import * as ora from 'ora';
 import { isAliNpm, getNpmTarball, getAndExtractTarball } from 'ice-npm-utils';
 import { ALI_NPM_REGISTRY } from '@iceworks/constant';
+import { getDataFromSettingJson } from '@iceworks/common-service';
 import ejsRenderDir from './ejsRenderDir';
 import formatProject from './fommatProject';
 import checkEmpty from './checkEmpty';
@@ -45,9 +46,11 @@ export async function downloadAndGenerateProject(
   console.log('download tarballURL', tarballURL);
 
   const spinner = ora('download npm tarball start').start();
+  const registryToken = getDataFromSettingJson('npmRegistryToken');
   await getAndExtractTarball(
     projectDir,
     tarballURL,
+    registryToken,
     (state) => {
       spinner.text = `download npm tarball progress: ${Math.floor(state.percent * 100)}%`;
     },

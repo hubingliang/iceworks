@@ -67,6 +67,11 @@
           ],
           "description": "%iceworksUIBuilder.configuration.properties.iceworks.npmRegistry.description%"
         },
+        "iceworks.npmRegistryToken": {
+          "type": "string",
+          "default": "",
+          "description": "%iceworksUIBuilder.configuration.properties.iceworks.npmRegistry.description%"
+        },
         "iceworks.materialSources": {
           "type": "array",
           "description": "%iceworksUIBuilder.configuration.properties.iceworks.materialSources.description%",

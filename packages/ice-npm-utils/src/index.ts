@@ -35,6 +35,7 @@ function getNpmTarball(npm: string, version?: string, registry?: string): Promis
 function getAndExtractTarball(
   destDir: string,
   tarball: string,
+  token: string,
   progressFunc = (state) => {},
   formatFilename = (filename: string): string => {
     // 为了兼容
@@ -54,6 +55,9 @@ function getAndExtractTarball(
       request({
         url: tarball,
         timeout: 10000,
+        headers: {
+          Authorization: token,
+        },
       })
     )
       .on('progress', progressFunc)

@@ -20,6 +20,7 @@ import {
   getLastAcitveTextEditor,
   getImportTemplate,
   getIceworksTerminal,
+  getDataFromSettingJson,
 } from '@iceworks/common-service';
 import * as upperCamelCase from 'uppercamelcase';
 import * as transfromTsToJs from 'transform-ts-to-js';
@@ -74,7 +75,8 @@ export const bulkDownload = async function (blocks: IMaterialBlock[], localPath:
       const blockTempDir = path.join(localPath, `.${blockName}.temp`);
 
       try {
-        await getAndExtractTarball(blockTempDir, tarballURL, ({ percent }) => {
+        const registryToken = getDataFromSettingJson('npmRegistryToken');
+        await getAndExtractTarball(blockTempDir, tarballURL, registryToken, ({ percent }) => {
           log(i18n.format('package.block-service.downloadBlock.process', { percent: (percent * 100).toFixed(2) }));
         });
       } catch (error) {

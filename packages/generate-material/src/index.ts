@@ -3,7 +3,7 @@ import * as fse from 'fs-extra';
 import * as path from 'path';
 import * as camelcase from 'camelcase';
 import { getNpmTarball, getAndExtractTarball } from 'ice-npm-utils';
-
+import { getDataFromSettingJson } from '@iceworks/common-service';
 import ejsRenderDir from './ejsRenderDir';
 import formatProject from './formatProject';
 
@@ -98,9 +98,11 @@ export async function downloadMaterialTemplate(dir: string, template: string, re
     console.log('download template tarball', tarballURL);
 
     const spinner = ora('download npm tarball start').start();
+    const registryToken = getDataFromSettingJson('npmRegistryToken');
     await getAndExtractTarball(
       dir,
       tarballURL,
+      registryToken,
       (state) => {
         spinner.text = `download npm tarball progress: ${Math.floor(state.percent * 100)}%`;
       },
